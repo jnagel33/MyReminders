@@ -7,6 +7,7 @@
 //
 
 #import "RemindersTableViewController.h"
+#import "LocationPointAnnotation.h"
 
 const int kNameIndexPath = 0;
 const int kDescriptionIndePath = 1;
@@ -17,6 +18,8 @@ const int kDescriptionIndePath = 1;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *reminderTextField;
+@property (weak, nonatomic) IBOutlet UISwitch *reminderSwitch;
 
 @end
 
@@ -25,15 +28,25 @@ const int kDescriptionIndePath = 1;
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.nameTextField.text = [self.currentAnnotation.annotation title];
-  self.descriptionTextField.text = [self.currentAnnotation.annotation subtitle];
-  CLLocationCoordinate2D coordinate = [self.currentAnnotation.annotation coordinate];
+  self.nameTextField.text = self.currentAnnotation.title;
+  self.descriptionTextField.text = self.currentAnnotation.subtitle;
+  CLLocationCoordinate2D coordinate = self.currentAnnotation.coordinate;
   self.latitudeLabel.text = [NSString stringWithFormat:@"%f", coordinate.latitude];
   self.longitudeLabel.text = [NSString stringWithFormat:@"%f", coordinate.longitude];
+  self.reminderSwitch.on = self.currentAnnotation.reminderOn;
+  self.reminderTextField.text = self.currentAnnotation.reminder;
 }
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
-  [self.delegate name:self.nameTextField.text AndOrDescriptionModified:self.descriptionTextField.text];
+  self.currentAnnotation.title = self.nameTextField.text;
+  self.currentAnnotation.subtitle = self.descriptionTextField.text;
+  self.currentAnnotation.reminderOn = self.reminderSwitch.on;
+  self.currentAnnotation.reminder = self.reminderTextField.text;
+  [self.delegate pointAnnotationChanged:self.currentAnnotation];
   [self.navigationController popViewControllerAnimated:true];
+}
+
+- (IBAction)toggleReminderSwitched:(UISwitch *)sender {
+  self.reminderSwitch.on = sender.on;
 }
 
 //MARK:

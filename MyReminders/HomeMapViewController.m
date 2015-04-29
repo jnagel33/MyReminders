@@ -9,7 +9,7 @@
 #import "HomeMapViewController.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "Location.h"
+#import "LocationPointAnnotation.h"
 #import "RemindersTableViewController.h"
 
 @interface HomeMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, RemindersTableViewDelegate>
@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) CLLocationCoordinate2D location;
-@property (strong, nonatomic) MKAnnotationView *currentAnnotation;
+@property (strong, nonatomic) LocationPointAnnotation *currentAnnotation;
 
 @end
 
@@ -49,10 +49,12 @@
   if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
     CGPoint pointPressed = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D coordinate = [self.mapView convertPoint:pointPressed toCoordinateFromView:self.mapView];
-    MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc]init];
+    LocationPointAnnotation *pointAnnotation = [[LocationPointAnnotation alloc]init];
     pointAnnotation.title = @"NewLocation";
     pointAnnotation.subtitle = @"More info";
     pointAnnotation.coordinate = coordinate;
+    pointAnnotation.reminderOn = false;
+    pointAnnotation.reminder = @"test";
     [self.mapView addAnnotation: pointAnnotation];
   }
 }
@@ -120,7 +122,6 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-  //TODO implement
   if (status == kCLAuthorizationStatusAuthorizedAlways) {
     self.mapView.showsUserLocation = true;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
@@ -148,7 +149,7 @@
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-  self.currentAnnotation = view;
+  self.currentAnnotation = view.annotation;
   [self performSegueWithIdentifier:@"ShowReminders" sender:self];
 }
 
@@ -169,18 +170,9 @@
 
 //MARK RemindersTableViewDelegate
 
--(void)name:(NSString *)name AndOrDescriptionModified:(NSString *)description {
-  NSLog(@"%@%@", name, description);
-  CLLocationCoordinate2D coordinates = [self.currentAnnotation.annotation coordinate];
-  [self.mapView removeAnnotation:self.currentAnnotation.annotation];
-  MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
-  annotation.title = name;
-  annotation.coordinate = coordinates;
-  annotation.subtitle = description;
-  
+-(void)pointAnnotationChanged:(LocationPointAnnotation *)annotation {
+  [self.mapView removeAnnotation:self.currentAnnotation];
   [self.mapView addAnnotation:annotation];
-
-  
 }
 
 @end

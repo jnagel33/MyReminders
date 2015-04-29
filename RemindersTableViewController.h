@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+@class LocationPointAnnotation;
 
 @protocol RemindersTableViewDelegate
 
--(void)name:(NSString *)name AndOrDescriptionModified:(NSString *)description;
+-(void)pointAnnotationChanged:(LocationPointAnnotation *)annotation;
 
 @end
 
 @interface RemindersTableViewController : UITableViewController
 
-@property(strong, nonatomic)MKAnnotationView *currentAnnotation;
+@property(strong, nonatomic)LocationPointAnnotation *currentAnnotation;
 @property (nonatomic, weak) id <RemindersTableViewDelegate> delegate;
 
 @end

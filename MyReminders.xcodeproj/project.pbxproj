@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		434C950F1AF07B4000B3A91A /* RemindersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434C950E1AF07B4000B3A91A /* RemindersTableViewController.m */; };
+		434C95151AF1670B00B3A91A /* LocationPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 434C95141AF1670B00B3A91A /* LocationPointAnnotation.m */; };
 		4384D3851AEF07940073A722 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D3841AEF07940073A722 /* main.m */; };
 		4384D3881AEF07940073A722 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D3871AEF07940073A722 /* AppDelegate.m */; };
 		4384D38B1AEF07940073A722 /* HomeMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D38A1AEF07940073A722 /* HomeMapViewController.m */; };
@@ -34,6 +35,8 @@
 /* Begin PBXFileReference section */
 		434C950D1AF07B4000B3A91A /* RemindersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindersTableViewController.h; sourceTree = "<group>"; };
 		434C950E1AF07B4000B3A91A /* RemindersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindersTableViewController.m; sourceTree = "<group>"; };
+		434C95131AF1670B00B3A91A /* LocationPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPointAnnotation.h; sourceTree = "<group>"; };
+		434C95141AF1670B00B3A91A /* LocationPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPointAnnotation.m; sourceTree = "<group>"; };
 		4384D37F1AEF07940073A722 /* MyReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4384D3831AEF07940073A722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4384D3841AEF07940073A722 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -78,6 +81,8 @@
 		4384D3761AEF07940073A722 = {
 			isa = PBXGroup;
 			children = (
+				434C95131AF1670B00B3A91A /* LocationPointAnnotation.h */,
+				434C95141AF1670B00B3A91A /* LocationPointAnnotation.m */,
 				434C950D1AF07B4000B3A91A /* RemindersTableViewController.h */,
 				434C950E1AF07B4000B3A91A /* RemindersTableViewController.m */,
 				4384D3A81AEF07C90073A722 /* MapKit.framework */,
@@ -250,6 +255,7 @@
 			files = (
 				434C950F1AF07B4000B3A91A /* RemindersTableViewController.m in Sources */,
 				4384D3AF1AEF131D0073A722 /* Queue.m in Sources */,
+				434C95151AF1670B00B3A91A /* LocationPointAnnotation.m in Sources */,
 				4384D3AC1AEF10290073A722 /* Stack.m in Sources */,
 				43E312841AEFF19B001F834B /* Location.m in Sources */,
 				4384D38B1AEF07940073A722 /* HomeMapViewController.m in Sources */,
