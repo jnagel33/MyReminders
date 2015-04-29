@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  Queue.h
 //  MyReminders
 //
 //  Created by Josh Nagel on 4/27/15.
 //  Copyright (c) 2015 jnagel. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface ViewController : UIViewController
-
+@interface Queue : NSObject
 
 @end
-
