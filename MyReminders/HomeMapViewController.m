@@ -32,16 +32,14 @@
   self.locationManager = [[CLLocationManager alloc]init];
   self.locationManager.delegate = self;
   self.mapView.mapType = MKMapTypeSatellite;
-  
-  CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
-  if (authStatus == kCLAuthorizationStatusNotDetermined) {
-    [self.locationManager requestAlwaysAuthorization];
-    return;
-  } else if (authStatus == kCLAuthorizationStatusDenied || authStatus == kCLAuthorizationStatusRestricted) {
-    [self showLocationServicesAlert];
-  } else {
-    self.mapView.showsUserLocation = true;
-//    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+  if ([CLLocationManager locationServicesEnabled]) {
+    CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
+    if (authStatus == kCLAuthorizationStatusNotDetermined) {
+      [self.locationManager requestAlwaysAuthorization];
+      self.mapView.showsUserLocation = true;
+    } else if (authStatus == kCLAuthorizationStatusDenied || authStatus == kCLAuthorizationStatusRestricted) {
+      [self showLocationServicesAlert];
+    }
   }
   
   
@@ -132,17 +130,14 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-  UILocalNotification *notification = [[UILocalNotification alloc]init];
-  notification.alertTitle = @"test";
-  notification.alertAction = @"region launch";
-  [[UIApplication sharedApplication]presentLocalNotificationNow:notification];
+  NSLog(@"entered Region!");
+  UILocalNotification *notification = [[UILocalNotification alloc] init];
+  notification.alertTitle = @"New Reminder";
+  notification.alertBody = region.identifier;
+  [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-  UILocalNotification *notification = [[UILocalNotification alloc]init];
-  notification.alertTitle = @"test";
-  notification.alertBody = @"region launch";
-  [[UIApplication sharedApplication]presentLocalNotificationNow:notification];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
