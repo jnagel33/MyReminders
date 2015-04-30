@@ -10,13 +10,13 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "LocationPointAnnotation.h"
+#import "AppDelegate.h"
 #import "RemindersTableViewController.h"
 
-@interface HomeMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, RemindersTableViewDelegate>
+@interface HomeMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (nonatomic) CLLocationCoordinate2D location;
 @property (strong, nonatomic) LocationPointAnnotation *currentAnnotation;
 
 @end
@@ -25,10 +25,14 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.mapView.delegate = self;
-  self.locationManager.delegate = self;
   
+  [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pointAnnotationChanged:) name:@"pointAnnotationChanged" object:nil];
+  
+  self.mapView.delegate = self;
   self.locationManager = [[CLLocationManager alloc]init];
+  self.locationManager.delegate = self;
+  self.mapView.mapType = MKMapTypeSatellite;
+  
   CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
   if (authStatus == kCLAuthorizationStatusNotDetermined) {
     [self.locationManager requestAlwaysAuthorization];
@@ -37,7 +41,7 @@
     [self showLocationServicesAlert];
   } else {
     self.mapView.showsUserLocation = true;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
   }
   
   
@@ -124,8 +128,29 @@
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
   if (status == kCLAuthorizationStatusAuthorizedAlways) {
     self.mapView.showsUserLocation = true;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
   }
+}
+
+-(void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+  UILocalNotification *notification = [[UILocalNotification alloc]init];
+  notification.alertTitle = @"test";
+  notification.alertAction = @"region launch";
+  [[UIApplication sharedApplication]presentLocalNotificationNow:notification];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+  UILocalNotification *notification = [[UILocalNotification alloc]init];
+  notification.alertTitle = @"test";
+  notification.alertBody = @"region launch";
+  [[UIApplication sharedApplication]presentLocalNotificationNow:notification];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
+  NSLog(@"Started monitoring");
+}
+
+-(void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+  NSLog(@"Failed");
 }
 
 //MARK:
@@ -136,15 +161,24 @@
     return nil;
   }
     MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Location"];
+  LocationPointAnnotation *pointAnnotation = (LocationPointAnnotation *)annotation;
     if (annotationView == nil) {
-      annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"Location"];
+      annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:pointAnnotation reuseIdentifier:@"Location"];
       annotationView.enabled = true;
       annotationView.draggable = true;
       annotationView.animatesDrop = true;
       annotationView.canShowCallout = true;
       annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-      
     }
+  
+  if (pointAnnotation.reminderOn) {
+    UIButton *alertButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIImage *image = [UIImage imageNamed:@"AlarmIcon"];
+    [alertButton setImage:image forState:UIControlStateNormal];
+    annotationView.leftCalloutAccessoryView = alertButton;
+  } else {
+    annotationView.leftCalloutAccessoryView = nil;
+  }
     return annotationView;
 }
 
@@ -154,25 +188,43 @@
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
-  if (newState == MKAnnotationViewDragStateEnding) {
-    [view.annotation coordinate];
-  }
-  
 }
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   if ([segue.identifier  isEqual: @"ShowReminders"]) {
     RemindersTableViewController *destinationController = [segue destinationViewController];
-    destinationController.delegate = self;
     destinationController.currentAnnotation = self.currentAnnotation;
   }
 }
 
-//MARK RemindersTableViewDelegate
-
--(void)pointAnnotationChanged:(LocationPointAnnotation *)annotation {
+-(void)pointAnnotationChanged:(NSNotification *)notification {
   [self.mapView removeAnnotation:self.currentAnnotation];
+  LocationPointAnnotation *annotation = notification.userInfo[@"annotation"];
   [self.mapView addAnnotation:annotation];
+  if (annotation.reminderOn) {
+    if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
+      CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:annotation.coordinate radius:200 identifier:annotation.reminder];
+      [self.locationManager startMonitoringForRegion:region];
+      MKCircle *circle = [MKCircle circleWithCenterCoordinate:region.center radius:region.radius];
+      [self.mapView addOverlay:circle];
+    }
+  }
+  
+}
+
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+  MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
+  
+  circleRenderer.fillColor = [UIColor redColor];
+  circleRenderer.strokeColor = [UIColor whiteColor];
+  circleRenderer.alpha = 0.5;
+  
+  return circleRenderer;
+}
+
+-(void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

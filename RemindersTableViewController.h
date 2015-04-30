@@ -7,18 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
 @class LocationPointAnnotation;
-
-@protocol RemindersTableViewDelegate
-
--(void)pointAnnotationChanged:(LocationPointAnnotation *)annotation;
-
-@end
 
 @interface RemindersTableViewController : UITableViewController
 
 @property(strong, nonatomic)LocationPointAnnotation *currentAnnotation;
-@property (nonatomic, weak) id <RemindersTableViewDelegate> delegate;
 
 @end

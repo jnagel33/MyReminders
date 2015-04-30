@@ -19,7 +19,6 @@
 		4384D3A91AEF07C90073A722 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4384D3A81AEF07C90073A722 /* MapKit.framework */; };
 		4384D3AC1AEF10290073A722 /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D3AB1AEF10290073A722 /* Stack.m */; };
 		4384D3AF1AEF131D0073A722 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D3AE1AEF131D0073A722 /* Queue.m */; };
-		43E312841AEFF19B001F834B /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E312831AEFF19B001F834B /* Location.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,15 +34,15 @@
 /* Begin PBXFileReference section */
 		434C950D1AF07B4000B3A91A /* RemindersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindersTableViewController.h; sourceTree = "<group>"; };
 		434C950E1AF07B4000B3A91A /* RemindersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindersTableViewController.m; sourceTree = "<group>"; };
-		434C95131AF1670B00B3A91A /* LocationPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPointAnnotation.h; sourceTree = "<group>"; };
-		434C95141AF1670B00B3A91A /* LocationPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPointAnnotation.m; sourceTree = "<group>"; };
+		434C95131AF1670B00B3A91A /* LocationPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationPointAnnotation.h; path = ../LocationPointAnnotation.h; sourceTree = "<group>"; };
+		434C95141AF1670B00B3A91A /* LocationPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationPointAnnotation.m; path = ../LocationPointAnnotation.m; sourceTree = "<group>"; };
 		4384D37F1AEF07940073A722 /* MyReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4384D3831AEF07940073A722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4384D3841AEF07940073A722 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4384D3861AEF07940073A722 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4384D3871AEF07940073A722 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4384D3891AEF07940073A722 /* HomeMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeMapViewController.h; sourceTree = "<group>"; };
-		4384D38A1AEF07940073A722 /* HomeMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeMapViewController.m; sourceTree = "<group>"; };
+		4384D3891AEF07940073A722 /* HomeMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HomeMapViewController.h; path = MyReminders/HomeMapViewController.h; sourceTree = "<group>"; };
+		4384D38A1AEF07940073A722 /* HomeMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HomeMapViewController.m; path = MyReminders/HomeMapViewController.m; sourceTree = "<group>"; };
 		4384D38D1AEF07940073A722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4384D38F1AEF07940073A722 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4384D3921AEF07940073A722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -55,8 +54,6 @@
 		4384D3AB1AEF10290073A722 /* Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stack.m; sourceTree = "<group>"; };
 		4384D3AD1AEF131D0073A722 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 		4384D3AE1AEF131D0073A722 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
-		43E312821AEFF19B001F834B /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		43E312831AEFF19B001F834B /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,13 +75,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		434C95161AF16D8100B3A91A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				434C950E1AF07B4000B3A91A /* RemindersTableViewController.m */,
+				434C950D1AF07B4000B3A91A /* RemindersTableViewController.h */,
+				4384D3891AEF07940073A722 /* HomeMapViewController.h */,
+				4384D38A1AEF07940073A722 /* HomeMapViewController.m */,
+			);
+			name = Controller;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		434C95171AF16DB800B3A91A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4384D38C1AEF07940073A722 /* Main.storyboard */,
+				4384D38F1AEF07940073A722 /* Images.xcassets */,
+				4384D3911AEF07940073A722 /* LaunchScreen.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		434C95181AF16DCA00B3A91A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4384D3AA1AEF10290073A722 /* Stack.h */,
+				4384D3AB1AEF10290073A722 /* Stack.m */,
+				4384D3AD1AEF131D0073A722 /* Queue.h */,
+				4384D3AE1AEF131D0073A722 /* Queue.m */,
+				434C95141AF1670B00B3A91A /* LocationPointAnnotation.m */,
+				434C95131AF1670B00B3A91A /* LocationPointAnnotation.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		4384D3761AEF07940073A722 = {
 			isa = PBXGroup;
 			children = (
-				434C95131AF1670B00B3A91A /* LocationPointAnnotation.h */,
-				434C95141AF1670B00B3A91A /* LocationPointAnnotation.m */,
-				434C950D1AF07B4000B3A91A /* RemindersTableViewController.h */,
-				434C950E1AF07B4000B3A91A /* RemindersTableViewController.m */,
 				4384D3A81AEF07C90073A722 /* MapKit.framework */,
 				4384D3811AEF07940073A722 /* MyReminders */,
 				4384D39B1AEF07940073A722 /* MyRemindersTests */,
@@ -106,18 +134,10 @@
 			children = (
 				4384D3861AEF07940073A722 /* AppDelegate.h */,
 				4384D3871AEF07940073A722 /* AppDelegate.m */,
-				4384D3891AEF07940073A722 /* HomeMapViewController.h */,
-				4384D38A1AEF07940073A722 /* HomeMapViewController.m */,
-				43E312821AEFF19B001F834B /* Location.h */,
-				43E312831AEFF19B001F834B /* Location.m */,
-				4384D3AA1AEF10290073A722 /* Stack.h */,
-				4384D3AB1AEF10290073A722 /* Stack.m */,
-				4384D38C1AEF07940073A722 /* Main.storyboard */,
-				4384D38F1AEF07940073A722 /* Images.xcassets */,
-				4384D3911AEF07940073A722 /* LaunchScreen.xib */,
+				434C95181AF16DCA00B3A91A /* Model */,
+				434C95161AF16D8100B3A91A /* Controller */,
+				434C95171AF16DB800B3A91A /* View */,
 				4384D3821AEF07940073A722 /* Supporting Files */,
-				4384D3AD1AEF131D0073A722 /* Queue.h */,
-				4384D3AE1AEF131D0073A722 /* Queue.m */,
 			);
 			path = MyReminders;
 			sourceTree = "<group>";
@@ -257,7 +277,6 @@
 				4384D3AF1AEF131D0073A722 /* Queue.m in Sources */,
 				434C95151AF1670B00B3A91A /* LocationPointAnnotation.m in Sources */,
 				4384D3AC1AEF10290073A722 /* Stack.m in Sources */,
-				43E312841AEFF19B001F834B /* Location.m in Sources */,
 				4384D38B1AEF07940073A722 /* HomeMapViewController.m in Sources */,
 				4384D3881AEF07940073A722 /* AppDelegate.m in Sources */,
 				4384D3851AEF07940073A722 /* main.m in Sources */,

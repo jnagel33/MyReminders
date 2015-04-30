@@ -10,7 +10,7 @@
 #import "LocationPointAnnotation.h"
 
 const int kNameIndexPath = 0;
-const int kDescriptionIndePath = 1;
+const int kDescriptionIndexPath = 1;
 
 @interface RemindersTableViewController () <UITextFieldDelegate>
 
@@ -39,9 +39,11 @@ const int kDescriptionIndePath = 1;
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
   self.currentAnnotation.title = self.nameTextField.text;
   self.currentAnnotation.subtitle = self.descriptionTextField.text;
-  self.currentAnnotation.reminderOn = self.reminderSwitch.on;
   self.currentAnnotation.reminder = self.reminderTextField.text;
-  [self.delegate pointAnnotationChanged:self.currentAnnotation];
+  self.currentAnnotation.reminderOn = self.reminderSwitch.on;
+  
+  NSDictionary *userInfo = @{@"annotation": self.currentAnnotation};
+  [[NSNotificationCenter defaultCenter]postNotificationName:@"pointAnnotationChanged" object:self userInfo:userInfo];
   [self.navigationController popViewControllerAnimated:true];
 }
 
@@ -55,7 +57,7 @@ const int kDescriptionIndePath = 1;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.row == kNameIndexPath) {
     [self.nameTextField becomeFirstResponder];
-  } else if (indexPath.row == kDescriptionIndePath) {
+  } else if (indexPath.row == kDescriptionIndexPath) {
     [self.descriptionTextField becomeFirstResponder];
   }
 }
