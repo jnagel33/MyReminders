@@ -10,6 +10,8 @@
 
 @interface AppDelegate ()
 
+@property (strong, nonatomic) NSDictionary *userInfo;
+
 @end
 
 @implementation AppDelegate
@@ -18,9 +20,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
     [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    
+    if (launchOptions) {
+      NSLog(@"%@", self.userInfo);
+    }
+    
+    NSLog(@"%@", launchOptions);
+    
   }
   // Override point for customization after application launch.
   return YES;
+}
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+  NSLog(@"local notification");
+  self.userInfo = notification.userInfo;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

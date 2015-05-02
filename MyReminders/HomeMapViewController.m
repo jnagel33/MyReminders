@@ -39,12 +39,26 @@
       self.mapView.showsUserLocation = true;
     } else if (authStatus == kCLAuthorizationStatusDenied || authStatus == kCLAuthorizationStatusRestricted) {
       [self showLocationServicesAlert];
+    } else {
+      NSArray *regions = self.locationManager.monitoredRegions.allObjects;
+      for (CLCircularRegion *region in regions) {
+        LocationPointAnnotation *annotation = [[LocationPointAnnotation alloc]init];
+        annotation.coordinate = region.center;
+        annotation.title = region.identifier;
+        annotation.reminder = region.identifier;
+        annotation.reminderOn = true;
+        [self.mapView addAnnotation: annotation];
+        MKCircle *circle = [MKCircle circleWithCenterCoordinate:region.center radius:region.radius];
+        [self.mapView addOverlay:circle];
+      }
     }
   }
-  
-  
   UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
   [self.mapView addGestureRecognizer:longPress];
+}
+
+- (void)viewWillAppear {
+  self.navigationController.navigationBar.hidden = YES;
 }
 
 -(void)longPress: (UILongPressGestureRecognizer *)gestureRecognizer {
@@ -52,11 +66,11 @@
     CGPoint pointPressed = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D coordinate = [self.mapView convertPoint:pointPressed toCoordinateFromView:self.mapView];
     LocationPointAnnotation *pointAnnotation = [[LocationPointAnnotation alloc]init];
-    pointAnnotation.title = @"NewLocation";
-    pointAnnotation.subtitle = @"More info";
+    pointAnnotation.title = @"New";
+    pointAnnotation.subtitle = nil;
     pointAnnotation.coordinate = coordinate;
     pointAnnotation.reminderOn = false;
-    pointAnnotation.reminder = @"test";
+    pointAnnotation.reminder = nil;
     [self.mapView addAnnotation: pointAnnotation];
   }
 }
@@ -95,6 +109,13 @@
   [self.locationManager stopUpdatingLocation];
   CLLocationCoordinate2D seattleCoordinate = CLLocationCoordinate2DMake(47.6097, -122.3331);
   [self setLocationRegion:seattleCoordinate];
+  LocationPointAnnotation *pointAnnotation = [[LocationPointAnnotation alloc]init];
+  pointAnnotation.title = @"Seattle";
+  pointAnnotation.subtitle = nil;
+  pointAnnotation.coordinate = seattleCoordinate;
+  pointAnnotation.reminderOn = false;
+  pointAnnotation.reminder = nil;
+  [self.mapView addAnnotation: pointAnnotation];
 }
 - (IBAction)saltLakeCityButtonPressed:(UIButton *)sender {
   [self.locationManager stopUpdatingLocation];
@@ -134,10 +155,15 @@
   UILocalNotification *notification = [[UILocalNotification alloc] init];
   notification.alertTitle = @"New Reminder";
   notification.alertBody = region.identifier;
+  notification.alertAction = @"EnteredRegion";
+  
+  NSDictionary *userInfo = @{ @"test" : @"test" };
+  notification.userInfo = userInfo;
   [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+  NSLog(@"Left region");
 }
 
 -(void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
@@ -179,7 +205,7 @@
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
   self.currentAnnotation = view.annotation;
-  [self performSegueWithIdentifier:@"ShowReminders" sender:self];
+  [self performSegueWithIdentifier:@"ShowReminder" sender:self];
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
@@ -187,7 +213,7 @@
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  if ([segue.identifier  isEqual: @"ShowReminders"]) {
+  if ([segue.identifier  isEqual: @"ShowReminder"]) {
     RemindersTableViewController *destinationController = [segue destinationViewController];
     destinationController.currentAnnotation = self.currentAnnotation;
   }
@@ -205,15 +231,12 @@
       [self.mapView addOverlay:circle];
     }
   }
-  
 }
 
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
   MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
-  
   circleRenderer.fillColor = [UIColor redColor];
-  circleRenderer.strokeColor = [UIColor whiteColor];
-  circleRenderer.alpha = 0.5;
+  circleRenderer.alpha = 0.3;
   
   return circleRenderer;
 }

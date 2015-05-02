@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E11f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cIr-QA-aY4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E11f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IyN-uE-Y5T">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -86,16 +86,17 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ObE-vU-dmf"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="D96-El-JDb" id="axG-Ef-ail"/>
-                        <segue destination="Hhk-nT-zxW" kind="show" identifier="ShowReminders" id="BD2-Z8-wqb"/>
+                        <segue destination="Hhk-nT-zxW" kind="show" identifier="ShowReminder" id="LSe-TR-uKP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="315"/>
+            <point key="canvasLocation" x="1964" y="315"/>
         </scene>
-        <!--Reminders-->
+        <!--Reminder-->
         <scene sceneID="tKM-MB-uEO">
             <objects>
                 <tableViewController id="Hhk-nT-zxW" customClass="RemindersTableViewController" sceneMemberID="viewController">
@@ -104,7 +105,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="hWl-BA-GMq">
+                            <tableViewSection headerTitle="Details" id="hWl-BA-GMq">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lBL-HZ-rLF">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -273,15 +274,17 @@
                             <outlet property="delegate" destination="Hhk-nT-zxW" id="NxO-ZI-OLj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Reminders" id="iUf-B7-yal">
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="3gK-Kb-r2p">
+                    <navigationItem key="navigationItem" title="Reminder" id="H1w-g9-yJz">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="lKS-NF-J4Y">
                             <connections>
-                                <action selector="donePressed:" destination="Hhk-nT-zxW" id="VRH-bG-Pws"/>
+                                <action selector="donePressed:" destination="Hhk-nT-zxW" id="Edm-DQ-KeK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="descriptionTextField" destination="C8K-ZK-A1n" id="Hoq-vH-I1D"/>
+                        <outlet property="doneButton" destination="lKS-NF-J4Y" id="oy2-6z-q1u"/>
                         <outlet property="latitudeLabel" destination="2tH-Jd-Jzn" id="nrh-kJ-4X5"/>
                         <outlet property="longitudeLabel" destination="nAZ-q8-cFk" id="NOb-9h-e9d"/>
                         <outlet property="nameTextField" destination="3bc-KN-5dp" id="BpB-iX-Djv"/>
@@ -291,25 +294,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8rK-hh-cy4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1910" y="396"/>
+            <point key="canvasLocation" x="2826" y="342"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="R5o-DE-MVW">
+        <scene sceneID="BtO-B3-kFz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cIr-QA-aY4" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IyN-uE-Y5T" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TtL-Vo-YoB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JAE-xj-waP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="BUn-9L-5tQ"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Vd8-1t-dal"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="t38-mQ-foR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SkI-wR-Au8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="559" y="-378"/>
+            <point key="canvasLocation" x="1152" y="315"/>
         </scene>
     </scenes>
 </document>
