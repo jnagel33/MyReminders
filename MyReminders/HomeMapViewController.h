@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class AppDelegate;
+@class CLCircularRegion;
 
 @interface HomeMapViewController : UIViewController
 
+@property (strong, nonatomic)CLCircularRegion *notificationRegion;
 
 @end
 

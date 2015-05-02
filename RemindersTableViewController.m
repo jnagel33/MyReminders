@@ -11,6 +11,9 @@
 
 const int kNameIndexPath = 0;
 const int kDescriptionIndexPath = 1;
+const CGFloat kReminderTitleRectHeight = 40;
+const CGFloat kReminderTitleRectWidth = 80;
+const CGFloat kReminderTitleFontSize = 20;
 const NSString *placeholderLocationName = @"New";
 
 @interface RemindersTableViewController () <UITextFieldDelegate>
@@ -29,12 +32,17 @@ const NSString *placeholderLocationName = @"New";
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.navigationController.navigationBar.hidden = NO;
+
+  UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kReminderTitleRectWidth, kReminderTitleRectHeight)];
+  titleLabel.text = @"Reminder";
+  titleLabel.font = [UIFont fontWithName:@"Optima" size:kReminderTitleFontSize];
+  titleLabel.textColor = [UIColor whiteColor];
+  titleLabel.textAlignment = NSTextAlignmentCenter;
+  self.navigationItem.titleView = titleLabel;
+  
   self.nameTextField.delegate = self;
   self.descriptionTextField.delegate = self;
   self.reminderTextField.delegate = self;
-  
-  [self.nameTextField becomeFirstResponder];
   
   if (self.currentAnnotation.title != placeholderLocationName) {
     self.nameTextField.text = self.currentAnnotation.title;

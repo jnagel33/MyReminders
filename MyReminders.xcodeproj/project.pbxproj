@@ -19,12 +19,14 @@
 		437B997D1AF31F4C0092EEB8 /* MyReminders WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 437B995D1AF31F4C0092EEB8 /* MyReminders WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		437B99881AF322550092EEB8 /* RegionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 437B99861AF322490092EEB8 /* RegionRow.m */; };
 		437B998B1AF329280092EEB8 /* RegionInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 437B998A1AF329280092EEB8 /* RegionInterfaceController.m */; };
+		437E78B41AF493F200C7CB65 /* MyReminderStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 437E78B31AF493F200C7CB65 /* MyReminderStyleKit.m */; };
+		437E78B71AF4A97C00C7CB65 /* ReminderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 437E78B61AF4A97C00C7CB65 /* ReminderView.m */; };
+		437E78BA1AF4B91400C7CB65 /* ReminderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 437E78B91AF4B91400C7CB65 /* ReminderButton.m */; };
 		4384D3851AEF07940073A722 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D3841AEF07940073A722 /* main.m */; };
 		4384D3881AEF07940073A722 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D3871AEF07940073A722 /* AppDelegate.m */; };
 		4384D38B1AEF07940073A722 /* HomeMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D38A1AEF07940073A722 /* HomeMapViewController.m */; };
 		4384D38E1AEF07940073A722 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4384D38C1AEF07940073A722 /* Main.storyboard */; };
 		4384D3901AEF07940073A722 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4384D38F1AEF07940073A722 /* Images.xcassets */; };
-		4384D3931AEF07940073A722 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4384D3911AEF07940073A722 /* LaunchScreen.xib */; };
 		4384D39F1AEF07940073A722 /* MyRemindersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D39E1AEF07940073A722 /* MyRemindersTests.m */; };
 		4384D3A91AEF07C90073A722 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4384D3A81AEF07C90073A722 /* MapKit.framework */; };
 		4384D3AC1AEF10290073A722 /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4384D3AB1AEF10290073A722 /* Stack.m */; };
@@ -92,6 +94,12 @@
 		437B99861AF322490092EEB8 /* RegionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegionRow.m; path = ../RegionRow.m; sourceTree = "<group>"; };
 		437B99891AF329280092EEB8 /* RegionInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegionInterfaceController.h; path = "../MyReminders WatchKit App/RegionInterfaceController.h"; sourceTree = "<group>"; };
 		437B998A1AF329280092EEB8 /* RegionInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegionInterfaceController.m; path = "../MyReminders WatchKit App/RegionInterfaceController.m"; sourceTree = "<group>"; };
+		437E78B21AF493F200C7CB65 /* MyReminderStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyReminderStyleKit.h; sourceTree = "<group>"; };
+		437E78B31AF493F200C7CB65 /* MyReminderStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyReminderStyleKit.m; sourceTree = "<group>"; };
+		437E78B51AF4A97C00C7CB65 /* ReminderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReminderView.h; path = ../ReminderView.h; sourceTree = "<group>"; };
+		437E78B61AF4A97C00C7CB65 /* ReminderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReminderView.m; path = ../ReminderView.m; sourceTree = "<group>"; };
+		437E78B81AF4B91400C7CB65 /* ReminderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReminderButton.h; sourceTree = "<group>"; };
+		437E78B91AF4B91400C7CB65 /* ReminderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReminderButton.m; sourceTree = "<group>"; };
 		4384D37F1AEF07940073A722 /* MyReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4384D3831AEF07940073A722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4384D3841AEF07940073A722 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -101,7 +109,6 @@
 		4384D38A1AEF07940073A722 /* HomeMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HomeMapViewController.m; path = MyReminders/HomeMapViewController.m; sourceTree = "<group>"; };
 		4384D38D1AEF07940073A722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4384D38F1AEF07940073A722 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4384D3921AEF07940073A722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4384D3981AEF07940073A722 /* MyRemindersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyRemindersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4384D39D1AEF07940073A722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4384D39E1AEF07940073A722 /* MyRemindersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyRemindersTests.m; sourceTree = "<group>"; };
@@ -153,9 +160,14 @@
 		434C95171AF16DB800B3A91A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				437E78B51AF4A97C00C7CB65 /* ReminderView.h */,
+				437E78B61AF4A97C00C7CB65 /* ReminderView.m */,
 				4384D38C1AEF07940073A722 /* Main.storyboard */,
+				437E78B81AF4B91400C7CB65 /* ReminderButton.h */,
+				437E78B91AF4B91400C7CB65 /* ReminderButton.m */,
 				4384D38F1AEF07940073A722 /* Images.xcassets */,
-				4384D3911AEF07940073A722 /* LaunchScreen.xib */,
+				437E78B21AF493F200C7CB65 /* MyReminderStyleKit.h */,
+				437E78B31AF493F200C7CB65 /* MyReminderStyleKit.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -428,7 +440,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4384D38E1AEF07940073A722 /* Main.storyboard in Resources */,
-				4384D3931AEF07940073A722 /* LaunchScreen.xib in Resources */,
 				4384D3901AEF07940073A722 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,9 +474,12 @@
 				4384D3AF1AEF131D0073A722 /* Queue.m in Sources */,
 				434C95151AF1670B00B3A91A /* LocationPointAnnotation.m in Sources */,
 				4384D3AC1AEF10290073A722 /* Stack.m in Sources */,
+				437E78B41AF493F200C7CB65 /* MyReminderStyleKit.m in Sources */,
 				4384D38B1AEF07940073A722 /* HomeMapViewController.m in Sources */,
 				4384D3881AEF07940073A722 /* AppDelegate.m in Sources */,
+				437E78BA1AF4B91400C7CB65 /* ReminderButton.m in Sources */,
 				4384D3851AEF07940073A722 /* main.m in Sources */,
+				437E78B71AF4A97C00C7CB65 /* ReminderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,14 +526,6 @@
 				4384D38D1AEF07940073A722 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4384D3911AEF07940073A722 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4384D3921AEF07940073A722 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -727,6 +733,7 @@
 				437B99801AF31F4C0092EEB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		437B99811AF31F4C0092EEB8 /* Build configuration list for PBXNativeTarget "MyReminders WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -735,6 +742,7 @@
 				437B99831AF31F4C0092EEB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4384D37A1AEF07940073A722 /* Build configuration list for PBXProject "MyReminders" */ = {
 			isa = XCConfigurationList;

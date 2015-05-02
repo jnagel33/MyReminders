@@ -56,39 +56,109 @@
                                     <action selector="seattleButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kf9-gR-qNG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fns-jH-ia1">
-                                <rect key="frame" x="240" y="20" width="121" height="30"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <size key="titleShadowOffset" width="1" height="1"/>
-                                <state key="normal" title="Current Location">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <view opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hbc-mU-aT5">
+                                <rect key="frame" x="0.0" y="600" width="600" height="125"/>
+                                <subviews>
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Zv-2v-4gz" customClass="ReminderView">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="46"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZh-D7-d6P">
+                                                <rect key="frame" x="231" y="9" width="138" height="28"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaA-iE-qJo">
+                                                        <rect key="frame" x="42" y="2" width="88" height="25"/>
+                                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="20"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <size key="shadowOffset" width="1" height="-1"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InvertedAlarmIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Y8l-DN-mkx">
+                                                        <rect key="frame" x="8" y="0.0" width="30" height="28"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="28" id="Usa-aL-6gz"/>
+                                                            <constraint firstAttribute="width" constant="30" id="uF5-X4-LpC"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="PaA-iE-qJo" secondAttribute="bottom" constant="1" id="5DE-kS-pTT"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Y8l-DN-mkx" secondAttribute="bottom" id="8cx-R3-ObU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="PaA-iE-qJo" secondAttribute="trailing" constant="8" id="IaQ-8A-s20"/>
+                                                    <constraint firstItem="Y8l-DN-mkx" firstAttribute="leading" secondItem="fZh-D7-d6P" secondAttribute="leading" constant="8" id="RzR-Ib-qvL"/>
+                                                    <constraint firstAttribute="width" constant="138" id="dtG-cv-ttK"/>
+                                                    <constraint firstItem="PaA-iE-qJo" firstAttribute="leading" secondItem="Y8l-DN-mkx" secondAttribute="trailing" constant="4" id="pJG-6d-ykD"/>
+                                                    <constraint firstItem="Y8l-DN-mkx" firstAttribute="top" secondItem="fZh-D7-d6P" secondAttribute="top" id="uzh-yO-Abo"/>
+                                                    <constraint firstItem="PaA-iE-qJo" firstAttribute="top" secondItem="fZh-D7-d6P" secondAttribute="top" constant="2" id="w4v-XY-G6Q"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="centerY" secondItem="fZh-D7-d6P" secondAttribute="centerY" id="PCc-OR-mEt"/>
+                                            <constraint firstAttribute="centerX" secondItem="fZh-D7-d6P" secondAttribute="centerX" id="iHm-9j-e8Y"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuV-HY-Fd5">
+                                        <rect key="frame" x="8" y="54" width="584" height="22"/>
+                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <size key="shadowOffset" width="1" height="-1"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="125" id="1md-JV-VbW"/>
+                                    <constraint firstItem="3Zv-2v-4gz" firstAttribute="top" secondItem="Hbc-mU-aT5" secondAttribute="top" id="2u5-eH-PP2"/>
+                                    <constraint firstAttribute="centerX" secondItem="AuV-HY-Fd5" secondAttribute="centerX" id="LSA-KI-Q1s"/>
+                                    <constraint firstItem="3Zv-2v-4gz" firstAttribute="leading" secondItem="Hbc-mU-aT5" secondAttribute="leading" id="RAa-UM-eS9"/>
+                                    <constraint firstItem="AuV-HY-Fd5" firstAttribute="leading" secondItem="Hbc-mU-aT5" secondAttribute="leading" constant="8" id="Smt-H5-YuM"/>
+                                    <constraint firstItem="AuV-HY-Fd5" firstAttribute="top" secondItem="3Zv-2v-4gz" secondAttribute="bottom" constant="8" id="WrU-e0-kXl"/>
+                                    <constraint firstAttribute="trailing" secondItem="AuV-HY-Fd5" secondAttribute="trailing" constant="8" id="eCU-Co-dZh"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Zv-2v-4gz" secondAttribute="trailing" id="kWM-XL-yUD"/>
+                                    <constraint firstAttribute="bottom" secondItem="AuV-HY-Fd5" secondAttribute="bottom" constant="49" id="s0B-aF-siQ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="or7-PS-K0g" customClass="ReminderButton">
+                                <rect key="frame" x="231" y="687" width="138" height="30"/>
+                                <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="15"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="currentLocationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Vt-Ot-59i"/>
+                                    <action selector="okPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jd5-Lz-hlO"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="Fns-jH-ia1" secondAttribute="centerX" id="7Ky-7e-tfB"/>
                             <constraint firstItem="D96-El-JDb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Afs-ot-yCX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D96-El-JDb" secondAttribute="trailing" constant="-16" id="CPy-CO-o79"/>
+                            <constraint firstAttribute="centerX" secondItem="or7-PS-K0g" secondAttribute="centerX" id="DDP-hG-unh"/>
                             <constraint firstItem="OnM-9A-ECD" firstAttribute="top" secondItem="D96-El-JDb" secondAttribute="bottom" constant="-50" id="FU7-8W-ZQq"/>
                             <constraint firstItem="D96-El-JDb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="LAs-2M-vzm"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Hbc-mU-aT5" secondAttribute="bottom" constant="-125" id="TQp-1P-YlT"/>
+                            <constraint firstItem="or7-PS-K0g" firstAttribute="width" secondItem="fZh-D7-d6P" secondAttribute="width" id="WaZ-ZC-6mE"/>
                             <constraint firstItem="D96-El-JDb" firstAttribute="leading" secondItem="rcg-TH-8UV" secondAttribute="trailing" constant="-64" id="cDr-Mj-UMm"/>
                             <constraint firstItem="OnM-9A-ECD" firstAttribute="leading" secondItem="D96-El-JDb" secondAttribute="trailing" constant="-59" id="gDk-oK-Ugz"/>
                             <constraint firstItem="rcg-TH-8UV" firstAttribute="top" secondItem="D96-El-JDb" secondAttribute="bottom" constant="-50" id="iXq-MO-6Xu"/>
-                            <constraint firstItem="D96-El-JDb" firstAttribute="top" secondItem="Fns-jH-ia1" secondAttribute="bottom" constant="-50" id="n9c-8N-rlA"/>
+                            <constraint firstItem="or7-PS-K0g" firstAttribute="top" secondItem="Hbc-mU-aT5" secondAttribute="bottom" constant="-38" id="jh0-M1-K75"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="D96-El-JDb" secondAttribute="bottom" id="o9I-iM-f7N"/>
                             <constraint firstItem="L25-uU-dHG" firstAttribute="top" secondItem="D96-El-JDb" secondAttribute="bottom" constant="-50" id="oaZ-pL-u0i"/>
+                            <constraint firstAttribute="centerX" secondItem="Hbc-mU-aT5" secondAttribute="centerX" id="ovS-eZ-yhv"/>
+                            <constraint firstItem="Hbc-mU-aT5" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="slK-nl-58N"/>
                             <constraint firstAttribute="centerX" secondItem="L25-uU-dHG" secondAttribute="centerX" id="xe1-vD-1jy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ObE-vU-dmf"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="constraintReminderViewBottom" destination="TQp-1P-YlT" id="IXx-1f-Obw"/>
                         <outlet property="mapView" destination="D96-El-JDb" id="axG-Ef-ail"/>
+                        <outlet property="reminderLabel" destination="AuV-HY-Fd5" id="fyr-Pk-HrV"/>
                         <segue destination="Hhk-nT-zxW" kind="show" identifier="ShowReminder" id="LSe-TR-uKP"/>
                     </connections>
                 </viewController>
@@ -96,7 +166,7 @@
             </objects>
             <point key="canvasLocation" x="1964" y="315"/>
         </scene>
-        <!--Reminder-->
+        <!--Reminders Table View Controller-->
         <scene sceneID="tKM-MB-uEO">
             <objects>
                 <tableViewController id="Hhk-nT-zxW" customClass="RemindersTableViewController" sceneMemberID="viewController">
@@ -114,7 +184,8 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3bc-KN-5dp">
                                                     <rect key="frame" x="109" y="7" width="483" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSI-g0-B8q">
@@ -122,7 +193,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="93" id="9pa-ay-cX0"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -143,7 +214,8 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C8K-ZK-A1n">
                                                     <rect key="frame" x="109" y="7" width="490" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9c-s0-rNd">
@@ -152,7 +224,7 @@
                                                         <constraint firstAttribute="width" constant="93" id="H79-qM-dIv"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="ga3-Lj-YrV"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -181,7 +253,7 @@
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="G6H-um-rrq"/>
                                                         <constraint firstAttribute="width" constant="93" id="IMP-vi-fEd"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
@@ -192,7 +264,8 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tH-Jd-Jzn">
                                                     <rect key="frame" x="109" y="11" width="483" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -216,13 +289,14 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="93" id="qYX-lb-FTZ"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="long" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAZ-q8-cFk">
                                                     <rect key="frame" x="109" y="11" width="483" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -253,7 +327,8 @@
                                                 </switch>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a reminder" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R69-sr-2po">
                                                     <rect key="frame" x="8" y="7" width="527" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -274,13 +349,14 @@
                             <outlet property="delegate" destination="Hhk-nT-zxW" id="NxO-ZI-OLj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Reminder" id="H1w-g9-yJz">
+                    <navigationItem key="navigationItem" id="H1w-g9-yJz">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="lKS-NF-J4Y">
                             <connections>
                                 <action selector="donePressed:" destination="Hhk-nT-zxW" id="Edm-DQ-KeK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="descriptionTextField" destination="C8K-ZK-A1n" id="Hoq-vH-I1D"/>
@@ -315,4 +391,7 @@
             <point key="canvasLocation" x="1152" y="315"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="InvertedAlarmIcon" width="30" height="28"/>
+    </resources>
 </document>

@@ -7,10 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import <CoreLocation/CoreLocation.h>
+#import "HomeMapViewController.h"
 
 @interface AppDelegate ()
 
-@property (strong, nonatomic) NSDictionary *userInfo;
+@property(strong, nonatomic) NSDictionary *userInfo;
+@property(strong, nonatomic) CLCircularRegion *notificationRegion;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -18,23 +22,33 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  
+  
+  self.window.tintColor = [UIColor whiteColor];
+  
+  
+  
   if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
     [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
     
     if (launchOptions) {
-      NSLog(@"%@", self.userInfo);
+      HomeMapViewController *homeController = (HomeMapViewController *)self.window.rootViewController;
+      homeController.notificationRegion = self.notificationRegion;
     }
-    
-    NSLog(@"%@", launchOptions);
-    
   }
-  // Override point for customization after application launch.
   return YES;
 }
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-  NSLog(@"local notification");
-  self.userInfo = notification.userInfo;
+  NSString *regionIdentifier = notification.userInfo[@"region"];
+  self.locationManager = [[CLLocationManager alloc]init];
+  NSArray * regions = self.locationManager.monitoredRegions.allObjects;
+  for (CLCircularRegion *region in regions) {
+    if ([regionIdentifier isEqualToString:region.identifier]) {
+      self.notificationRegion = region;
+      [[NSNotificationCenter defaultCenter]postNotificationName:@"notificationForRegion" object:self userInfo:@{@"region": self.notificationRegion }];
+    }
+  }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -12,12 +12,35 @@
 #import "LocationPointAnnotation.h"
 #import "AppDelegate.h"
 #import "RemindersTableViewController.h"
+#import "MyReminderStyleKit.h"
+#import "ReminderButton.h"
+
+struct Coordinate {
+  CGFloat latitude;
+  CGFloat longitude;
+};
+const CGFloat kTitleRectHeight = 40;
+const CGFloat kTitleRectWidth = 80;
+const CGFloat kTitleFontSize = 20;
+const CGFloat kSetRegionBuffer = 1000;
+const CGFloat kReminderViewBottomConstraintOnScreen = 50;
+const CGFloat kReminderViewBottomConstraintOffScreen = -125;
+const CGFloat kRegionMonitoringRadius = 200;
+const CGFloat kCircleRenderOverlayAlpha = 0.3;
+const CGFloat kAlertIconHeightWidth = 25;
+const CGFloat kNavBarPlusStatusBarHeight = 64;
+const NSInteger kAnimationDuration = 1;
+static const struct Coordinate kSeattleCoordinates = {47.6097, -122.3331};
+static const struct Coordinate kSaltLakeCityCoordinates = {40.75, -111.8833};
+static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
 
 @interface HomeMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) LocationPointAnnotation *currentAnnotation;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintReminderViewBottom;
+@property (weak, nonatomic) IBOutlet UILabel *reminderLabel;
 
 @end
 
@@ -26,7 +49,18 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  UIImage *navBar = [MyReminderStyleKit imageOfRedGradientBarWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, kNavBarPlusStatusBarHeight)];
+  [self.navigationController.navigationBar setBackgroundImage:navBar forBarMetrics:UIBarMetricsDefault];
+  UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kTitleRectWidth, kTitleRectHeight)];
+  titleLabel.font = [UIFont fontWithName:@"Optima" size:kTitleFontSize];
+  titleLabel.textColor = [UIColor whiteColor];
+  titleLabel.textAlignment = NSTextAlignmentCenter;
+  titleLabel.text = @"My Reminders";
+  self.navigationItem.titleView = titleLabel;
+  
   [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pointAnnotationChanged:) name:@"pointAnnotationChanged" object:nil];
+  
+  [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notificationForRegion:) name:@"notificationForRegion" object:nil];
   
   self.mapView.delegate = self;
   self.locationManager = [[CLLocationManager alloc]init];
@@ -50,6 +84,9 @@
         [self.mapView addAnnotation: annotation];
         MKCircle *circle = [MKCircle circleWithCenterCoordinate:region.center radius:region.radius];
         [self.mapView addOverlay:circle];
+      }
+      if (self.notificationRegion != nil) {
+        [self setLocationRegion:self.notificationRegion.center];
       }
     }
   }
@@ -97,7 +134,7 @@
 }
 
 -(void)setLocationRegion: (CLLocationCoordinate2D)coordinate {
-  MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000);
+  MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, kSetRegionBuffer, kSetRegionBuffer);
   MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:region];
   [self.mapView setRegion:adjustedRegion animated:true];
 }
@@ -106,25 +143,16 @@
 }
 
 - (IBAction)seattleButtonPressed:(UIButton *)sender {
-  [self.locationManager stopUpdatingLocation];
-  CLLocationCoordinate2D seattleCoordinate = CLLocationCoordinate2DMake(47.6097, -122.3331);
+  CLLocationCoordinate2D seattleCoordinate = CLLocationCoordinate2DMake(kSeattleCoordinates.latitude, kSeattleCoordinates.longitude);
   [self setLocationRegion:seattleCoordinate];
-  LocationPointAnnotation *pointAnnotation = [[LocationPointAnnotation alloc]init];
-  pointAnnotation.title = @"Seattle";
-  pointAnnotation.subtitle = nil;
-  pointAnnotation.coordinate = seattleCoordinate;
-  pointAnnotation.reminderOn = false;
-  pointAnnotation.reminder = nil;
-  [self.mapView addAnnotation: pointAnnotation];
 }
 - (IBAction)saltLakeCityButtonPressed:(UIButton *)sender {
-  [self.locationManager stopUpdatingLocation];
-  CLLocationCoordinate2D saltLakeCoordinate = CLLocationCoordinate2DMake(40.75, -111.8833);
+  CLLocationCoordinate2D saltLakeCoordinate = CLLocationCoordinate2DMake(kSaltLakeCityCoordinates.latitude, kSaltLakeCityCoordinates.longitude);
   [self setLocationRegion:saltLakeCoordinate];
 }
 - (IBAction)austinButtonPressed:(UIButton *)sender {
   [self.locationManager stopUpdatingLocation];
-  CLLocationCoordinate2D austinCoordinate = CLLocationCoordinate2DMake(30.25, -97.75);
+  CLLocationCoordinate2D austinCoordinate = CLLocationCoordinate2DMake(kAustinCoordinates.latitude, kAustinCoordinates.longitude);
   [self setLocationRegion:austinCoordinate];
 }
 
@@ -156,8 +184,7 @@
   notification.alertTitle = @"New Reminder";
   notification.alertBody = region.identifier;
   notification.alertAction = @"EnteredRegion";
-  
-  NSDictionary *userInfo = @{ @"test" : @"test" };
+  NSDictionary *userInfo = @{ @"region" : region.identifier };
   notification.userInfo = userInfo;
   [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
@@ -189,11 +216,13 @@
       annotationView.draggable = true;
       annotationView.animatesDrop = true;
       annotationView.canShowCallout = true;
-      annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+      UIButton *detailDisclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+      detailDisclosureButton.tintColor = [UIColor blackColor];
+      annotationView.rightCalloutAccessoryView = detailDisclosureButton;
     }
   
   if (pointAnnotation.reminderOn) {
-    UIButton *alertButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIButton *alertButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kAlertIconHeightWidth, kAlertIconHeightWidth)];
     UIImage *image = [UIImage imageNamed:@"AlarmIcon"];
     [alertButton setImage:image forState:UIControlStateNormal];
     annotationView.leftCalloutAccessoryView = alertButton;
@@ -219,13 +248,24 @@
   }
 }
 
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+  MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
+  circleRenderer.fillColor = [UIColor redColor];
+  circleRenderer.alpha = kCircleRenderOverlayAlpha;
+  
+  return circleRenderer;
+}
+
+//MARK:
+//MARK: NSNotifications
+
 -(void)pointAnnotationChanged:(NSNotification *)notification {
   [self.mapView removeAnnotation:self.currentAnnotation];
   LocationPointAnnotation *annotation = notification.userInfo[@"annotation"];
   [self.mapView addAnnotation:annotation];
   if (annotation.reminderOn) {
     if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-      CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:annotation.coordinate radius:200 identifier:annotation.reminder];
+      CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:annotation.coordinate radius:kRegionMonitoringRadius identifier:annotation.reminder];
       [self.locationManager startMonitoringForRegion:region];
       MKCircle *circle = [MKCircle circleWithCenterCoordinate:region.center radius:region.radius];
       [self.mapView addOverlay:circle];
@@ -233,16 +273,25 @@
   }
 }
 
--(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
-  MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
-  circleRenderer.fillColor = [UIColor redColor];
-  circleRenderer.alpha = 0.3;
-  
-  return circleRenderer;
+-(void)notificationForRegion:(NSNotification *)notification {
+  CLCircularRegion *notificationRegion = notification.userInfo[@"region"];
+  [self setLocationRegion:notificationRegion.center];
+  self.constraintReminderViewBottom.constant = kReminderViewBottomConstraintOnScreen;
+  self.reminderLabel.text = notificationRegion.identifier;
+  [UIView animateWithDuration:kAnimationDuration animations:^{
+    [self.view layoutIfNeeded];
+  }];
+}
+- (IBAction)okPressed:(ReminderButton *)sender {
+  self.constraintReminderViewBottom.constant = kReminderViewBottomConstraintOffScreen;
+  [UIView animateWithDuration:kAnimationDuration animations:^{
+    [self.view layoutIfNeeded];
+  }];
 }
 
 -(void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 @end
