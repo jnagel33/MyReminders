@@ -25,4 +25,8 @@
   [self.stackArray addObject:newString];
 }
 
+-(NSString *)peak {
+  return [self.stackArray lastObject];
+}
+
 @end
