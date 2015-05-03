@@ -12,7 +12,6 @@
 @interface HashTable()
 
 @property(strong,nonatomic)NSMutableArray *items;
-@property(nonatomic)NSUInteger count;
 @property(nonatomic)NSUInteger size;
 
 @end
@@ -21,7 +20,7 @@
 
 -(instancetype)initWithSize:(NSInteger)size {
   if (self = [super init]) {
-    for (int i = 1; i < self.size; i++) {
+    for (int i = 0; i < self.size; i++) {
       Bucket *bucket = [[Bucket alloc]init];
       [self.items addObject:bucket];
     }
