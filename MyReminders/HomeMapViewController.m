@@ -70,7 +70,6 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
     CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
     if (authStatus == kCLAuthorizationStatusNotDetermined) {
       [self.locationManager requestAlwaysAuthorization];
-      self.mapView.showsUserLocation = true;
     } else if (authStatus == kCLAuthorizationStatusDenied || authStatus == kCLAuthorizationStatusRestricted) {
       [self showLocationServicesAlert];
     } else {
@@ -96,6 +95,10 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
 
 - (void)viewWillAppear {
   self.navigationController.navigationBar.hidden = YES;
+}
+
+-(void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)longPress: (UILongPressGestureRecognizer *)gestureRecognizer {
@@ -138,9 +141,6 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:region];
   [self.mapView setRegion:adjustedRegion animated:true];
 }
-- (IBAction)currentLocationPressed:(UIButton *)sender {
-  [self getCurrentLocation];
-}
 
 - (IBAction)seattleButtonPressed:(UIButton *)sender {
   CLLocationCoordinate2D seattleCoordinate = CLLocationCoordinate2DMake(kSeattleCoordinates.latitude, kSeattleCoordinates.longitude);
@@ -154,6 +154,22 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   [self.locationManager stopUpdatingLocation];
   CLLocationCoordinate2D austinCoordinate = CLLocationCoordinate2DMake(kAustinCoordinates.latitude, kAustinCoordinates.longitude);
   [self setLocationRegion:austinCoordinate];
+}
+
+-(void)startMonitoringAndAddOverlayForRegion: (CLCircularRegion *)region {
+  [self.locationManager startMonitoringForRegion:region];
+  MKCircle *circle = [MKCircle circleWithCenterCoordinate:region.center radius:region.radius];
+  [self.mapView addOverlay:circle];
+}
+
+-(void)stopMonitoringAndRemoveOverlay:(CLCircularRegion *)region {
+  [self.locationManager stopMonitoringForRegion:region];
+  NSArray *overlays = [self.mapView overlays];
+  for (MKCircle *overlay in overlays) {
+    if (overlay.coordinate.latitude == region.center.latitude && overlay.coordinate.longitude == region.center.longitude) {
+      [self.mapView removeOverlay:overlay];
+    }
+  }
 }
 
 
@@ -208,19 +224,18 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   if ([annotation isKindOfClass:[MKUserLocation class]]) {
     return nil;
   }
-    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Location"];
+  MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Location"];
   LocationPointAnnotation *pointAnnotation = (LocationPointAnnotation *)annotation;
-    if (annotationView == nil) {
-      annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:pointAnnotation reuseIdentifier:@"Location"];
-      annotationView.enabled = true;
-      annotationView.draggable = true;
-      annotationView.animatesDrop = true;
-      annotationView.canShowCallout = true;
-      UIButton *detailDisclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-      detailDisclosureButton.tintColor = [UIColor blackColor];
-      annotationView.rightCalloutAccessoryView = detailDisclosureButton;
-    }
-  
+  if (annotationView == nil) {
+    annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:pointAnnotation reuseIdentifier:@"Location"];
+    annotationView.enabled = true;
+    annotationView.draggable = true;
+    annotationView.animatesDrop = true;
+    annotationView.canShowCallout = true;
+    UIButton *detailDisclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    detailDisclosureButton.tintColor = [UIColor blackColor];
+    annotationView.rightCalloutAccessoryView = detailDisclosureButton;
+  }
   if (pointAnnotation.reminderOn) {
     UIButton *alertButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kAlertIconHeightWidth, kAlertIconHeightWidth)];
     UIImage *image = [UIImage imageNamed:@"AlarmIcon"];
@@ -229,7 +244,7 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   } else {
     annotationView.leftCalloutAccessoryView = nil;
   }
-    return annotationView;
+  return annotationView;
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
@@ -238,13 +253,17 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
-}
-
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  if ([segue.identifier  isEqual: @"ShowReminder"]) {
-    RemindersTableViewController *destinationController = [segue destinationViewController];
-    destinationController.currentAnnotation = self.currentAnnotation;
+  LocationPointAnnotation *pointAnnotation = (LocationPointAnnotation *)view.annotation;
+  CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:pointAnnotation.coordinate radius:kRegionMonitoringRadius identifier:pointAnnotation.reminder];
+  if (oldState == MKAnnotationViewDragStateStarting) {
+    if (pointAnnotation.reminderOn) {
+      [self stopMonitoringAndRemoveOverlay:region];
+    }
+  } else if (newState == MKAnnotationViewDragStateEnding || newState ==MKAnnotationViewDragStateCanceling) {
+    if (pointAnnotation.reminderOn) {
+      [self stopMonitoringAndRemoveOverlay:region];
+      [self startMonitoringAndAddOverlayForRegion:region];
+    }
   }
 }
 
@@ -263,12 +282,13 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   [self.mapView removeAnnotation:self.currentAnnotation];
   LocationPointAnnotation *annotation = notification.userInfo[@"annotation"];
   [self.mapView addAnnotation:annotation];
-  if (annotation.reminderOn) {
-    if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-      CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:annotation.coordinate radius:kRegionMonitoringRadius identifier:annotation.reminder];
-      [self.locationManager startMonitoringForRegion:region];
-      MKCircle *circle = [MKCircle circleWithCenterCoordinate:region.center radius:region.radius];
-      [self.mapView addOverlay:circle];
+  if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
+    CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:annotation.coordinate radius:kRegionMonitoringRadius identifier:annotation.reminder];
+    if (annotation.reminderOn) {
+      [self stopMonitoringAndRemoveOverlay:region];
+      [self startMonitoringAndAddOverlayForRegion:region];
+    } else {
+      [self stopMonitoringAndRemoveOverlay:region];
     }
   }
 }
@@ -282,6 +302,7 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
     [self.view layoutIfNeeded];
   }];
 }
+
 - (IBAction)okPressed:(ReminderButton *)sender {
   self.constraintReminderViewBottom.constant = kReminderViewBottomConstraintOffScreen;
   [UIView animateWithDuration:kAnimationDuration animations:^{
@@ -289,9 +310,14 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   }];
 }
 
--(void)dealloc {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+//MARK:
+//MARK: Prepare for segue
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  if ([segue.identifier  isEqual: @"ShowReminder"]) {
+    RemindersTableViewController *destinationController = [segue destinationViewController];
+    destinationController.currentAnnotation = self.currentAnnotation;
+  }
+}
 
 @end

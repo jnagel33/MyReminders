@@ -10,7 +10,7 @@
 #import "LocationPointAnnotation.h"
 
 const int kNameIndexPath = 0;
-const int kDescriptionIndexPath = 1;
+const int kReminderIndexPath = 1;
 const CGFloat kReminderTitleRectHeight = 40;
 const CGFloat kReminderTitleRectWidth = 80;
 const CGFloat kReminderTitleFontSize = 20;
@@ -19,12 +19,13 @@ const NSString *placeholderLocationName = @"New";
 @interface RemindersTableViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
 @property (weak, nonatomic) IBOutlet UITextField *reminderTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *reminderSwitch;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (weak, nonatomic) IBOutlet UIImageView *mapSnapShot;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -32,6 +33,25 @@ const NSString *placeholderLocationName = @"New";
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self.activityIndicator startAnimating];
+  
+  MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.currentAnnotation.coordinate, 50, 50);
+  MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
+  options.region = region;
+  options.scale = [UIScreen mainScreen].scale;
+  options.size = self.mapSnapShot.frame.size;
+  options.mapType = MKMapTypeSatellite;
+  
+  MKMapSnapshotter *snapshotter = [[MKMapSnapshotter alloc] initWithOptions:options];
+  [snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {
+    UIImage *image = snapshot.image;
+    UIGraphicsBeginImageContext(self.mapSnapShot.frame.size);
+    [image drawInRect:CGRectMake(0, 0, self.mapSnapShot.frame.size.width, self.mapSnapShot.frame.size.height)];
+    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.activityIndicator stopAnimating];
+    self.mapSnapShot.image = resizedImage;
+  }];
 
   UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kReminderTitleRectWidth, kReminderTitleRectHeight)];
   titleLabel.text = @"Reminder";
@@ -41,7 +61,6 @@ const NSString *placeholderLocationName = @"New";
   self.navigationItem.titleView = titleLabel;
   
   self.nameTextField.delegate = self;
-  self.descriptionTextField.delegate = self;
   self.reminderTextField.delegate = self;
   
   if (self.currentAnnotation.title != placeholderLocationName) {
@@ -50,12 +69,6 @@ const NSString *placeholderLocationName = @"New";
     self.doneButton.enabled = false;
     self.nameTextField.text = nil;
     self.nameTextField.placeholder = @"Enter location name";
-  }
-  
-  if (self.currentAnnotation.subtitle != nil) {
-    self.descriptionTextField.text = self.currentAnnotation.subtitle;
-  } else {
-    self.descriptionTextField.placeholder = @"Enter description";
   }
   
   CLLocationCoordinate2D coordinate = self.currentAnnotation.coordinate;
@@ -67,7 +80,6 @@ const NSString *placeholderLocationName = @"New";
 
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
   self.currentAnnotation.title = self.nameTextField.text;
-  self.currentAnnotation.subtitle = self.descriptionTextField.text;
   self.currentAnnotation.reminder = self.reminderTextField.text;
   self.currentAnnotation.reminderOn = self.reminderSwitch.on;
   
@@ -89,8 +101,8 @@ const NSString *placeholderLocationName = @"New";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.row == kNameIndexPath) {
     [self.nameTextField becomeFirstResponder];
-  } else if (indexPath.row == kDescriptionIndexPath) {
-    [self.descriptionTextField becomeFirstResponder];
+  } else if (indexPath.row == kReminderIndexPath) {
+    [self.reminderTextField becomeFirstResponder];
   }
 }
 
@@ -99,7 +111,7 @@ const NSString *placeholderLocationName = @"New";
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
   if (textField == self.nameTextField) {
-    [self.descriptionTextField becomeFirstResponder];
+    [self.reminderTextField becomeFirstResponder];
   } else {
     [textField resignFirstResponder];
   }

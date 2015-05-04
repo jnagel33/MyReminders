@@ -175,7 +175,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Details" id="hWl-BA-GMq">
+                            <tableViewSection headerTitle="" id="kUL-Uv-2kT">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="300" id="Koo-xe-5yr">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Koo-xe-5yr" id="P1t-P6-wOr">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HqE-t7-y29">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
+                                                </imageView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="TrP-er-NJR">
+                                                    <rect key="frame" x="282" y="131" width="37" height="37"/>
+                                                    <color key="color" red="0.79816565515094928" green="0.0" blue="0.0076986478370986685" alpha="1" colorSpace="calibratedRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="HqE-t7-y29" firstAttribute="top" secondItem="P1t-P6-wOr" secondAttribute="top" id="3rA-Aa-JcV"/>
+                                                <constraint firstAttribute="bottom" secondItem="HqE-t7-y29" secondAttribute="bottom" id="4bb-dB-B4A"/>
+                                                <constraint firstAttribute="trailing" secondItem="HqE-t7-y29" secondAttribute="trailing" id="5AP-Dt-G7X"/>
+                                                <constraint firstItem="HqE-t7-y29" firstAttribute="leading" secondItem="P1t-P6-wOr" secondAttribute="leading" id="ChR-w0-HYM"/>
+                                                <constraint firstAttribute="centerX" secondItem="TrP-er-NJR" secondAttribute="centerX" id="JCG-db-afo"/>
+                                                <constraint firstAttribute="centerY" secondItem="TrP-er-NJR" secondAttribute="centerY" id="OJf-Yt-BpO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="hWl-BA-GMq">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lBL-HZ-rLF">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -183,19 +210,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3bc-KN-5dp">
-                                                    <rect key="frame" x="109" y="7" width="483" height="30"/>
+                                                    <rect key="frame" x="66" y="7" width="526" height="30"/>
                                                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSI-g0-B8q">
-                                                    <rect key="frame" x="8" y="11" width="93" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSI-g0-B8q">
+                                                    <rect key="frame" x="8" y="11" width="50" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="93" id="9pa-ay-cX0"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="9pa-ay-cX0"/>
+                                                        </mask>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -207,113 +239,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="N8L-d5-qHg">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N8L-d5-qHg" id="HfH-9D-PDL">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C8K-ZK-A1n">
-                                                    <rect key="frame" x="109" y="7" width="490" height="30"/>
-                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9c-s0-rNd">
-                                                    <rect key="frame" x="8" y="11" width="93" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="93" id="H79-qM-dIv"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="ga3-Lj-YrV"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="w9c-s0-rNd" firstAttribute="leading" secondItem="HfH-9D-PDL" secondAttribute="leadingMargin" id="GUZ-xd-fpW"/>
-                                                <constraint firstAttribute="centerY" secondItem="C8K-ZK-A1n" secondAttribute="centerY" id="Pi0-SW-rg9"/>
-                                                <constraint firstAttribute="centerY" secondItem="w9c-s0-rNd" secondAttribute="centerY" id="goV-7G-k7c"/>
-                                                <constraint firstItem="C8K-ZK-A1n" firstAttribute="leading" secondItem="w9c-s0-rNd" secondAttribute="trailing" constant="8" symbolic="YES" id="rgw-Qq-CsF"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="C8K-ZK-A1n" secondAttribute="trailing" constant="-7" id="yh2-qJ-auJ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Coordinance" id="sRj-vO-4As">
-                                <cells>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="5r6-u9-vMF">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5r6-u9-vMF" id="0ff-gc-YYD">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55W-eb-Z6z">
-                                                    <rect key="frame" x="8" y="11" width="93" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="G6H-um-rrq"/>
-                                                        <constraint firstAttribute="width" constant="93" id="IMP-vi-fEd"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="G6H-um-rrq"/>
-                                                        </mask>
-                                                    </variation>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tH-Jd-Jzn">
-                                                    <rect key="frame" x="109" y="11" width="483" height="21"/>
-                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="55W-eb-Z6z" firstAttribute="leading" secondItem="0ff-gc-YYD" secondAttribute="leadingMargin" id="3i9-se-lAB"/>
-                                                <constraint firstAttribute="centerY" secondItem="2tH-Jd-Jzn" secondAttribute="centerY" id="Jht-uq-6gQ"/>
-                                                <constraint firstItem="2tH-Jd-Jzn" firstAttribute="leading" secondItem="55W-eb-Z6z" secondAttribute="trailing" constant="8" id="Uiz-d0-sUN"/>
-                                                <constraint firstAttribute="centerY" secondItem="55W-eb-Z6z" secondAttribute="centerY" id="WD8-c3-AyZ"/>
-                                                <constraint firstItem="2tH-Jd-Jzn" firstAttribute="trailing" secondItem="0ff-gc-YYD" secondAttribute="trailingMargin" id="hiV-1W-Gnd"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="UKF-f5-kpH">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UKF-f5-kpH" id="68n-I3-9H7">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitiude:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fz9-c5-hdU">
-                                                    <rect key="frame" x="8" y="11" width="93" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="93" id="qYX-lb-FTZ"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="long" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAZ-q8-cFk">
-                                                    <rect key="frame" x="109" y="11" width="483" height="21"/>
-                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="nAZ-q8-cFk" firstAttribute="trailing" secondItem="68n-I3-9H7" secondAttribute="trailingMargin" id="Hau-4V-s1s"/>
-                                                <constraint firstAttribute="centerY" secondItem="nAZ-q8-cFk" secondAttribute="centerY" id="Jm0-CC-7IW"/>
-                                                <constraint firstItem="nAZ-q8-cFk" firstAttribute="leading" secondItem="fz9-c5-hdU" secondAttribute="trailing" constant="8" id="ixY-MF-lVr"/>
-                                                <constraint firstItem="fz9-c5-hdU" firstAttribute="leading" secondItem="68n-I3-9H7" secondAttribute="leadingMargin" id="s26-PU-RFS"/>
-                                                <constraint firstAttribute="centerY" secondItem="fz9-c5-hdU" secondAttribute="centerY" id="xdI-by-OTk"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Reminder" id="lyx-r3-jP2">
-                                <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="ALJ-FR-y9T">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ALJ-FR-y9T" id="38Q-uV-X6G">
@@ -343,6 +268,84 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Coordinance" id="sRj-vO-4As">
+                                <cells>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="5r6-u9-vMF">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5r6-u9-vMF" id="0ff-gc-YYD">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55W-eb-Z6z">
+                                                    <rect key="frame" x="8" y="11" width="64" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="G6H-um-rrq"/>
+                                                        <constraint firstAttribute="width" constant="93" id="IMP-vi-fEd"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="G6H-um-rrq"/>
+                                                            <exclude reference="IMP-vi-fEd"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="lat" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tH-Jd-Jzn">
+                                                    <rect key="frame" x="80" y="11" width="512" height="21"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="55W-eb-Z6z" firstAttribute="leading" secondItem="0ff-gc-YYD" secondAttribute="leadingMargin" id="3i9-se-lAB"/>
+                                                <constraint firstAttribute="centerY" secondItem="2tH-Jd-Jzn" secondAttribute="centerY" id="Jht-uq-6gQ"/>
+                                                <constraint firstItem="2tH-Jd-Jzn" firstAttribute="leading" secondItem="55W-eb-Z6z" secondAttribute="trailing" constant="8" id="Uiz-d0-sUN"/>
+                                                <constraint firstAttribute="centerY" secondItem="55W-eb-Z6z" secondAttribute="centerY" id="WD8-c3-AyZ"/>
+                                                <constraint firstItem="2tH-Jd-Jzn" firstAttribute="trailing" secondItem="0ff-gc-YYD" secondAttribute="trailingMargin" id="hiV-1W-Gnd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="UKF-f5-kpH">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UKF-f5-kpH" id="68n-I3-9H7">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="long" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAZ-q8-cFk">
+                                                    <rect key="frame" x="99" y="11" width="493" height="21"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitiude:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fz9-c5-hdU">
+                                                    <rect key="frame" x="8" y="11" width="83" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="93" id="qYX-lb-FTZ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="qYX-lb-FTZ"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="fz9-c5-hdU" secondAttribute="centerY" id="54N-ew-vuG"/>
+                                                <constraint firstAttribute="centerY" secondItem="nAZ-q8-cFk" secondAttribute="centerY" id="IB9-El-5R5"/>
+                                                <constraint firstItem="fz9-c5-hdU" firstAttribute="leading" secondItem="68n-I3-9H7" secondAttribute="leadingMargin" id="P4C-Xl-he7"/>
+                                                <constraint firstItem="nAZ-q8-cFk" firstAttribute="trailing" secondItem="68n-I3-9H7" secondAttribute="trailingMargin" id="hXj-M2-hTd"/>
+                                                <constraint firstItem="nAZ-q8-cFk" firstAttribute="leading" secondItem="fz9-c5-hdU" secondAttribute="trailing" constant="8" id="nrT-MH-oAs"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Hhk-nT-zxW" id="sSa-Og-LM4"/>
@@ -359,10 +362,11 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="descriptionTextField" destination="C8K-ZK-A1n" id="Hoq-vH-I1D"/>
+                        <outlet property="activityIndicator" destination="TrP-er-NJR" id="Yb9-8E-eVi"/>
                         <outlet property="doneButton" destination="lKS-NF-J4Y" id="oy2-6z-q1u"/>
                         <outlet property="latitudeLabel" destination="2tH-Jd-Jzn" id="nrh-kJ-4X5"/>
                         <outlet property="longitudeLabel" destination="nAZ-q8-cFk" id="NOb-9h-e9d"/>
+                        <outlet property="mapSnapShot" destination="HqE-t7-y29" id="yvQ-Ny-kAp"/>
                         <outlet property="nameTextField" destination="3bc-KN-5dp" id="BpB-iX-Djv"/>
                         <outlet property="reminderSwitch" destination="fjh-z3-CLk" id="a1f-sv-FdM"/>
                         <outlet property="reminderTextField" destination="R69-sr-2po" id="GSy-QE-3C0"/>
