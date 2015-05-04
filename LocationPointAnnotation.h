@@ -12,5 +12,6 @@
 
 @property(assign,nonatomic) BOOL reminderOn;
 @property(strong,nonatomic) NSString *reminder;
+@property(nonatomic) float radius;
 
 @end

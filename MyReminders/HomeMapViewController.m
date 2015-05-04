@@ -23,13 +23,17 @@ const CGFloat kTitleRectHeight = 40;
 const CGFloat kTitleRectWidth = 80;
 const CGFloat kTitleFontSize = 20;
 const CGFloat kSetRegionBuffer = 1000;
+const CGFloat kPointAnnotationDefaultRadius = 300;
 const CGFloat kReminderViewBottomConstraintOnScreen = 50;
 const CGFloat kReminderViewBottomConstraintOffScreen = -125;
-const CGFloat kRegionMonitoringRadius = 200;
 const CGFloat kCircleRenderOverlayAlpha = 0.3;
 const CGFloat kAlertIconHeightWidth = 25;
 const CGFloat kNavBarPlusStatusBarHeight = 64;
-const NSInteger kAnimationDuration = 1;
+const CGFloat kCustomTransformY = 0.8;
+const double kAnimationDuration = 1;
+const double kAnimationDurationQuick = 0.1;
+const double kAnimationDurationHalfSecond = 0.5;
+const double kDelayBetweenDrops = 0.05;
 static const struct Coordinate kSeattleCoordinates = {47.6097, -122.3331};
 static const struct Coordinate kSaltLakeCityCoordinates = {40.75, -111.8833};
 static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
@@ -111,6 +115,7 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
     pointAnnotation.coordinate = coordinate;
     pointAnnotation.reminderOn = false;
     pointAnnotation.reminder = nil;
+    pointAnnotation.radius = kPointAnnotationDefaultRadius;
     [self.mapView addAnnotation: pointAnnotation];
   }
 }
@@ -224,13 +229,13 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   if ([annotation isKindOfClass:[MKUserLocation class]]) {
     return nil;
   }
-  MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Location"];
+  MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Location"];
   LocationPointAnnotation *pointAnnotation = (LocationPointAnnotation *)annotation;
   if (annotationView == nil) {
-    annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:pointAnnotation reuseIdentifier:@"Location"];
+    annotationView = [[MKAnnotationView alloc]initWithAnnotation:pointAnnotation reuseIdentifier:@"Location"];
     annotationView.enabled = true;
     annotationView.draggable = true;
-    annotationView.animatesDrop = true;
+    [annotationView setImage:[UIImage imageNamed:@"CustomPin"]];
     annotationView.canShowCallout = true;
     UIButton *detailDisclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     detailDisclosureButton.tintColor = [UIColor blackColor];
@@ -244,7 +249,39 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   } else {
     annotationView.leftCalloutAccessoryView = nil;
   }
+  [annotationView setCenterOffset:CGPointMake(0, -annotationView.frame.size.height / 2)];
   return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+  for (MKAnnotationView *annotationView in views) {
+    if ([annotationView.annotation isKindOfClass:[MKUserLocation class]]) {
+      continue;
+    }
+    
+    MKMapPoint point =  MKMapPointForCoordinate(annotationView.annotation.coordinate);
+    if (!MKMapRectContainsPoint(self.mapView.visibleMapRect, point)) {
+      continue;
+    }
+    
+    CGRect endFrame = annotationView.frame;
+    annotationView.frame = CGRectMake(annotationView.frame.origin.x, annotationView.frame.origin.y - self.view.frame.size.height, annotationView.frame.size.width, annotationView.frame.size.height);
+    [UIView animateWithDuration:kAnimationDurationHalfSecond delay:kDelayBetweenDrops*[views indexOfObject:annotationView] options:UIViewAnimationOptionCurveEaseInOut animations:^{
+      annotationView.frame = endFrame;
+    }completion:^(BOOL finished){
+      if (finished) {
+        [UIView animateWithDuration:kAnimationDurationQuick animations:^{
+          annotationView.transform = CGAffineTransformMakeScale(1.0, kCustomTransformY);
+          
+        }completion:^(BOOL finished){
+          [UIView animateWithDuration:kAnimationDurationQuick animations:^{
+            annotationView.transform = CGAffineTransformIdentity;
+          }];
+        }];
+      }
+    }];
+    
+  }
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
@@ -254,15 +291,24 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
   LocationPointAnnotation *pointAnnotation = (LocationPointAnnotation *)view.annotation;
-  CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:pointAnnotation.coordinate radius:kRegionMonitoringRadius identifier:pointAnnotation.reminder];
-  if (oldState == MKAnnotationViewDragStateStarting) {
+  CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:pointAnnotation.coordinate radius:pointAnnotation.radius identifier:pointAnnotation.reminder];
+  CGPoint endPoint = CGPointMake(view.center.x,view.center.y - 20);
+  if (newState == MKAnnotationViewDragStateStarting) {
+    [UIView animateWithDuration:kAnimationDurationQuick animations:^{
+      view.center = endPoint;
+    }];
     if (pointAnnotation.reminderOn) {
       [self stopMonitoringAndRemoveOverlay:region];
     }
   } else if (newState == MKAnnotationViewDragStateEnding || newState ==MKAnnotationViewDragStateCanceling) {
+    endPoint = CGPointMake(view.center.x, view.center.y);
+    [UIView animateWithDuration:kAnimationDurationQuick animations:^{
+      view.center = endPoint;
+    }];
     if (pointAnnotation.reminderOn) {
       [self stopMonitoringAndRemoveOverlay:region];
       [self startMonitoringAndAddOverlayForRegion:region];
+      view.dragState = MKAnnotationViewDragStateNone;
     }
   }
 }
@@ -283,7 +329,7 @@ static const struct Coordinate kAustinCoordinates = {30.25, -97.7500};
   LocationPointAnnotation *annotation = notification.userInfo[@"annotation"];
   [self.mapView addAnnotation:annotation];
   if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-    CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:annotation.coordinate radius:kRegionMonitoringRadius identifier:annotation.reminder];
+    CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:annotation.coordinate radius:annotation.radius identifier:annotation.reminder];
     if (annotation.reminderOn) {
       [self stopMonitoringAndRemoveOverlay:region];
       [self startMonitoringAndAddOverlayForRegion:region];

@@ -202,7 +202,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="hWl-BA-GMq">
+                            <tableViewSection id="rKc-49-QjK">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lBL-HZ-rLF">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -239,7 +239,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="ALJ-FR-y9T">
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Reminder" id="hWl-BA-GMq">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="101" id="ALJ-FR-y9T">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ALJ-FR-y9T" id="38Q-uV-X6G">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -256,13 +260,52 @@
                                                     <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <slider opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="300" minValue="100" maxValue="500" translatesAutoresizingMaskIntoConstraints="NO" id="4LT-kd-7Te">
+                                                    <rect key="frame" x="35" y="45" width="530" height="31"/>
+                                                    <color key="minimumTrackTintColor" red="0.92123429229999998" green="0.92123429229999998" blue="0.92123429229999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="maximumTrackTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="thumbTintColor" red="0.79816565520000005" green="0.0" blue="0.007698647837" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="sliderValueChanged:" destination="Hhk-nT-zxW" eventType="valueChanged" id="0A3-Ob-xJs"/>
+                                                    </connections>
+                                                </slider>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qt2-Bw-LcK">
+                                                    <rect key="frame" x="278" y="83" width="45" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ys-2i-zo2">
+                                                    <rect key="frame" x="567" y="49" width="29" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pg-5O-uZs">
+                                                    <rect key="frame" x="4" y="49" width="29" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="29" id="zS1-Ai-HWu"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="fjh-z3-CLk" secondAttribute="centerY" id="2kT-z3-UdG"/>
+                                                <constraint firstItem="8pg-5O-uZs" firstAttribute="leading" secondItem="38Q-uV-X6G" secondAttribute="leading" constant="4" id="099-1c-UfZ"/>
+                                                <constraint firstItem="fjh-z3-CLk" firstAttribute="centerY" secondItem="R69-sr-2po" secondAttribute="centerY" constant="-0.5" id="8XY-Ei-Brb"/>
+                                                <constraint firstItem="7Ys-2i-zo2" firstAttribute="leading" secondItem="4LT-kd-7Te" secondAttribute="trailing" constant="4" id="AMV-hk-9Qr"/>
+                                                <constraint firstItem="4LT-kd-7Te" firstAttribute="leading" secondItem="8pg-5O-uZs" secondAttribute="trailing" constant="4" id="AZj-DS-zhJ"/>
                                                 <constraint firstItem="fjh-z3-CLk" firstAttribute="leading" secondItem="R69-sr-2po" secondAttribute="trailing" constant="8" id="CGT-mg-hdd"/>
+                                                <constraint firstItem="8pg-5O-uZs" firstAttribute="centerY" secondItem="4LT-kd-7Te" secondAttribute="centerY" id="EgG-Fk-hef"/>
+                                                <constraint firstItem="Qt2-Bw-LcK" firstAttribute="top" secondItem="4LT-kd-7Te" secondAttribute="bottom" constant="8" id="HlK-fu-mK9"/>
                                                 <constraint firstItem="fjh-z3-CLk" firstAttribute="trailing" secondItem="38Q-uV-X6G" secondAttribute="trailingMargin" id="Z8k-Yc-Cwv"/>
+                                                <constraint firstItem="7Ys-2i-zo2" firstAttribute="trailing" secondItem="38Q-uV-X6G" secondAttribute="trailing" constant="-4" id="e7k-tw-hRW"/>
                                                 <constraint firstItem="R69-sr-2po" firstAttribute="leading" secondItem="38Q-uV-X6G" secondAttribute="leadingMargin" id="eIj-5z-k69"/>
-                                                <constraint firstAttribute="centerY" secondItem="R69-sr-2po" secondAttribute="centerY" id="uif-xr-Ewo"/>
+                                                <constraint firstItem="7Ys-2i-zo2" firstAttribute="centerY" secondItem="4LT-kd-7Te" secondAttribute="centerY" constant="-0.5" id="fKx-fZ-6V3"/>
+                                                <constraint firstItem="4LT-kd-7Te" firstAttribute="top" secondItem="R69-sr-2po" secondAttribute="bottom" constant="8" id="fSI-cX-rbs"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Qt2-Bw-LcK" secondAttribute="bottom" constant="-8" id="wwO-mN-eEp"/>
+                                                <constraint firstAttribute="centerX" secondItem="Qt2-Bw-LcK" secondAttribute="centerX" id="x1V-Qf-AWi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -370,6 +413,7 @@
                         <outlet property="nameTextField" destination="3bc-KN-5dp" id="BpB-iX-Djv"/>
                         <outlet property="reminderSwitch" destination="fjh-z3-CLk" id="a1f-sv-FdM"/>
                         <outlet property="reminderTextField" destination="R69-sr-2po" id="GSy-QE-3C0"/>
+                        <outlet property="slider" destination="4LT-kd-7Te" id="ovL-So-YIt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8rK-hh-cy4" userLabel="First Responder" sceneMemberID="firstResponder"/>

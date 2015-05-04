@@ -26,6 +26,7 @@ const NSString *placeholderLocationName = @"New";
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIImageView *mapSnapShot;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @end
 
@@ -34,6 +35,13 @@ const NSString *placeholderLocationName = @"New";
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self.activityIndicator startAnimating];
+  [self.slider setThumbImage:[UIImage imageNamed:@"ThumbButton"] forState:UIControlStateNormal];
+  [self.slider setThumbImage:[UIImage imageNamed:@"ThumbButton"] forState:UIControlStateHighlighted];
+  [self.slider setMinimumTrackImage:[UIImage imageNamed:@"MinValSlider"] forState:UIControlStateNormal];
+  [self.slider setMinimumTrackImage:[UIImage imageNamed:@"MinValSlider"] forState:UIControlStateSelected];
+  [self.slider setMaximumTrackImage:[UIImage imageNamed:@"MaxValSlider"] forState:UIControlStateNormal];
+  [self.slider setMaximumTrackImage:[UIImage imageNamed:@"MaxValSlider"] forState:UIControlStateSelected];
+  self.slider.value = self.currentAnnotation.radius;
   
   MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.currentAnnotation.coordinate, 50, 50);
   MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
@@ -139,6 +147,9 @@ const NSString *placeholderLocationName = @"New";
     }
   }
   return true;
+}
+- (IBAction)sliderValueChanged:(UISlider *)sender {
+  self.currentAnnotation.radius = sender.value;
 }
 
 @end
